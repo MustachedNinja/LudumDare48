@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Door : MonoBehaviour {
     public Transform HingeTransform;
     public float DoorOpenAngle = 135;
     public float SmoothTime = 1f;
+
+    public UnityEvent OnOpen;
+    public UnityEvent OnClose;
 
     private float m_DoorCloseAngle;
     private float m_DoorAngularVel;
@@ -31,21 +35,23 @@ public class Door : MonoBehaviour {
     }
 
     [ContextMenu("SwitchState")]
-    public void SwitchDoorState() {
+    public void SwitchState() {
         if(this.m_State) {
-            this.CloseDoor();
+            this.Close();
         } else {
-            this.OpenDoor();
+            this.Open();
         }
     }
 
     [ContextMenu("Open")]
-    public void OpenDoor() {
+    public void Open() {
         this.m_State = true;
+        OnOpen.Invoke();
     }
 
     [ContextMenu("Close")]
-    public void CloseDoor() {
+    public void Close() {
         this.m_State = false;
+        OnClose.Invoke();
     }
 }
