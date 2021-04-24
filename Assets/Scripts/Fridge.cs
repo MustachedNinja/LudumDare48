@@ -1,76 +1,66 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 class Fridge : MonoBehaviour {
-    public Transform DoorTransform;
-    public float DoorOpenAngle = 135;
-    public float SmoothTime = 1f;
-    public float AngleEpsilon = 1f;
+    public Door FridgeDoor;
+    public List<Transform> Items;
 
-    public UnityEvent OnDoorOpen;
-    public UnityEvent OnDoorClose;
+    public UnityEvent OnItemTaken;
+    public UnityEvent OnItemPlaced;
 
-    private float m_DoorCloseAngle;
-    private float m_DoorTargetAngle;
-    private float m_DoorAngularVel;
+    private int m_CurrentItemCount;
 
-    private bool m_DoorState = false;
-    private bool m_DoorRotating = false;
-
-    public bool DoorState => this.m_DoorState;
-    public bool IsDoorRotating => this.m_DoorRotating;
-    public float DoorCloseAngle => this.m_DoorCloseAngle;
-    public float DoorAngularVelocity => this.m_DoorAngularVel;
-    public float DoorTargetAngle => this.m_DoorTargetAngle;
+    public int CurrentItemCount => m_CurrentItemCount;
 
     private void Awake() {
-        this.m_DoorCloseAngle = this.DoorTransform.localEulerAngles.y;
+        m_CurrentItemCount = Items.Count;
     }
 
-    public void Update() {
-        if(this.m_DoorRotating) {
-            //apply smoothdampen to door.
-            float currentAngle = this.DoorTransform.localEulerAngles.y;
-            float smoothedAngle = Mathf.SmoothDampAngle(currentAngle, this.m_DoorTargetAngle, ref this.m_DoorAngularVel, this.SmoothTime);
-            this.DoorTransform.localRotation = Quaternion.AngleAxis(smoothedAngle, this.DoorTransform.up);
+    [ContextMenu("TakeItem")]
+    public void TakeItem() {
+        if(FridgeDoor.State) {
+            m_CurrentItemCount--;
+            if(m_CurrentItemCount < 0) {
+                m_CurrentItemCount = 0;
+            }
+            UpdateItems();
+            OnItemTaken.Invoke();
+        }
+    }
 
-            //check if the target angle reached by calculating delta between target and current angle. 
-            if(Mathf.Abs(this.m_DoorTargetAngle - currentAngle) <= this.AngleEpsilon) {
-                //if the door is already opened, invoke door close event and set door state to false.
-                if(this.m_DoorState) {
-                    this.OnDoorClose.Invoke();
-                    this.DoorTransform.localRotation = Quaternion.AngleAxis(this.m_DoorCloseAngle, this.DoorTransform.up);
-                    this.m_DoorState = false;
-                } else {
-                    //if the door is already closed, invoke door open event and set door state to true.
-                    this.OnDoorOpen.Invoke();
-                    this.DoorTransform.localRotation = Quaternion.AngleAxis(this.DoorOpenAngle, this.DoorTransform.up);
-                    this.m_DoorState = true;
-                }
-                this.m_DoorRotating = false;
-                return;
+    [ContextMenu("PlaceItem")]
+    public void PlaceItem() {
+        if(FridgeDoor.State) {
+            m_CurrentItemCount++;
+            if(m_CurrentItemCount >= Items.Count) {
+                m_CurrentItemCount = Items.Count;
+            }
+            UpdateItems();
+            OnItemPlaced.Invoke();
+        }
+    }
+
+    public void UpdateItems() {
+        for(int i = 0; i < Items.Count; i++) {
+            if(i >= m_CurrentItemCount) {
+                Items[i].gameObject.SetActive(false);
+            } else {
+                Items[i].gameObject.SetActive(true);
             }
         }
     }
 
-    [ContextMenu("SwitchDoorState")]
-    public void SwitchDoorState() {
-        if(this.m_DoorState) {
-            this.CloseDoor();
+    public void SwitchState() {
+        if(!FridgeDoor.State) {
+            OpenDoor();
         } else {
-            this.OpenDoor();
+            CloseDoor();
         }
     }
 
-    [ContextMenu("OpenDoor")]
-    public void OpenDoor() {
-        this.m_DoorTargetAngle = this.DoorOpenAngle;
-        this.m_DoorRotating = true;
-    }
+    public void OpenDoor() => FridgeDoor.Open();
 
-    [ContextMenu("CloseDoor")]
-    public void CloseDoor() {
-        this.m_DoorTargetAngle = this.m_DoorCloseAngle;
-        this.m_DoorRotating = true;
-    }
+    public void CloseDoor() => FridgeDoor.Close();
 }
