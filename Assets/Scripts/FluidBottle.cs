@@ -5,7 +5,7 @@ using UnityEngine.Events;
 /// The purpose of this class is to represent Fluid container.
 /// </summary>
 class FluidBottle : MonoBehaviour {
-    public ParticleSystem FluidParticles;
+    public UnityEvent OnFluidSpray;
 
     public UnityEvent OnBottleEmpty;
     public float SprayRatio = 0.2f;
@@ -46,7 +46,7 @@ class FluidBottle : MonoBehaviour {
         if(this.m_Spray) {
             //emit particles and decrease fluid level by SprayRatio.
             this.m_FluidLevel -= this.SprayRatio * Time.deltaTime;
-            this.FluidParticles.Emit(1);
+            OnFluidSpray.Invoke();
 
             if(this.m_FluidLevel <= 0.0f + Mathf.Epsilon) {
                 this.m_Spray = false;
