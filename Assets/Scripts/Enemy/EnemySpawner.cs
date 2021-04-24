@@ -53,7 +53,6 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void SpawnEnemy() {
-        Debug.Log("SPAWNING ENEMY");
         Vector3 spawnPosition;
         bool foundSpawnPoint = GetRandomSpawnPoint(player.position, out spawnPosition);
         if (foundSpawnPoint) {

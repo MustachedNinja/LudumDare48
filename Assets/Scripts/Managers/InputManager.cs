@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPlayerShoot(InputAction.CallbackContext context) {
-        playerInteractEvent.Invoke(true);
+        playerShootEvent.Invoke(true);
     }
 
     private void OnPlayerInteract(InputAction.CallbackContext context) {

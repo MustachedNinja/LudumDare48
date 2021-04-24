@@ -264,8 +264,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b10a76c2755c4438fdf920cc95793e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 2112408498}
   distanceThreshold: 1.5
+  onPlayerReachedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!195 &56590654
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -432,7 +434,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 2.405872, y: 1}
+    m_SensorSize: {x: 1.7243083, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1086,7 +1088,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 2.405872, y: 1}
+    m_SensorSize: {x: 1.7243083, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2695,7 +2697,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.26336548, y: -0.000000013279143, z: 0.0000000036252534, w: 0.9646961}
+  m_LocalRotation: {x: 0.26336548, y: 0.000000013279143, z: -0.0000000036252534, w: 0.9646961}
   m_LocalPosition: {x: 0, y: 2.6651149, z: -4.300001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3324,7 +3326,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 2.405872, y: 1}
+    m_SensorSize: {x: 1.7243083, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3340,7 +3342,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420017314}
-  m_LocalRotation: {x: 0.23876177, y: -0.00000001670874, z: 0.0000000041082258, w: 0.9710782}
+  m_LocalRotation: {x: 0.23876177, y: 0.000000016708746, z: -0.000000004108227, w: 0.9710782}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4506,7 +4508,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 2.405872, y: 1}
+    m_SensorSize: {x: 1.7243083, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4522,7 +4524,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644126556}
-  m_LocalRotation: {x: 0.27387854, y: -0.000000016548483, z: 0.0000000047124584, w: 0.96176434}
+  m_LocalRotation: {x: 0.27387854, y: 0.000000016548483, z: -0.0000000047124584, w: 0.96176434}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5106,6 +5108,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -180}
+--- !u!114 &1873883712 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5735738177930183663, guid: c3f6057bddf781347927e48c4e1db2a5, type: 3}
+  m_PrefabInstance: {fileID: 8533383024690085094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c043efa47cfa2449e442e7c24fb904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1890932856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6415,9 +6428,37 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3567943954023291875, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
+      propertyPath: playerShootEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567943954023291875, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
+      propertyPath: playerShootEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567943954023291875, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
       propertyPath: playerMoveEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2112408501}
+    - target: {fileID: 3567943954023291875, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
+      propertyPath: playerShootEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1873883712}
+    - target: {fileID: 3567943954023291875, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
+      propertyPath: playerShootEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567943954023291875, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
+      propertyPath: playerShootEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPlayerShoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567943954023291875, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
+      propertyPath: playerShootEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerCombat, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567943954023291875, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
+      propertyPath: playerShootEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86eb7135dc83fe841b7c33f6b3cdbdb3, type: 3}
 --- !u!1001 &8533383024690085094
@@ -6431,6 +6472,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5735738177930183663, guid: c3f6057bddf781347927e48c4e1db2a5, type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 7579866205862236404, guid: dcd60f4acd947564d81f182f0793012f, type: 3}
     - target: {fileID: 8533383024493854410, guid: c3f6057bddf781347927e48c4e1db2a5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
