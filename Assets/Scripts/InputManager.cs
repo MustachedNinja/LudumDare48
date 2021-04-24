@@ -7,6 +7,8 @@ using UnityEngine.Events;
 [Serializable]
 public class PlayerMoveEvent : UnityEvent<float, float> {}
 [Serializable]
+public class PlayerShootEvent : UnityEvent<bool> {}
+[Serializable]
 public class PlayerInteractEvent : UnityEvent<bool> {}
 [Serializable]
 public class PauseInputEvent : UnityEvent<bool> {}
@@ -17,6 +19,7 @@ public class InputManager : MonoBehaviour
 
     public PauseInputEvent pauseInputEvent = null;
     public PlayerMoveEvent playerMoveEvent = null;
+    public PlayerShootEvent playerShootEvent = null;
     public PlayerInteractEvent playerInteractEvent = null;
     // Add reference to custom input events
 
@@ -30,6 +33,8 @@ public class InputManager : MonoBehaviour
         controls.Player.Enable();
         controls.Player.Move.performed += ctx => OnMovePlayer(ctx);
         controls.Player.Move.canceled += ctx => OnMovePlayer(ctx);
+
+        controls.Player.Shoot.performed += ctx => OnPlayerShoot(ctx);
 
         controls.Player.Interact.performed += ctx => OnPlayerInteract(ctx);
         // Player controls logic goes here
@@ -46,6 +51,10 @@ public class InputManager : MonoBehaviour
     private void OnMovePlayer(InputAction.CallbackContext context) {
         Vector2 direction = context.ReadValue<Vector2>();
         playerMoveEvent.Invoke(direction.x, direction.y);
+    }
+
+    private void OnPlayerShoot(InputAction.CallbackContext context) {
+        playerInteractEvent.Invoke(true);
     }
 
     private void OnPlayerInteract(InputAction.CallbackContext context) {
