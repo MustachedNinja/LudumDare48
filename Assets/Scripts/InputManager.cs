@@ -3,11 +3,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-[Serializable]
-public class PauseInputEvent : UnityEvent<bool> {}
 // Create custom input events here
 [Serializable]
 public class PlayerMoveEvent : UnityEvent<float, float> {}
+[Serializable]
+public class PlayerInteractEvent : UnityEvent<bool> {}
+[Serializable]
+public class PauseInputEvent : UnityEvent<bool> {}
 
 public class InputManager : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class InputManager : MonoBehaviour
 
     public PauseInputEvent pauseInputEvent = null;
     public PlayerMoveEvent playerMoveEvent = null;
+    public PlayerInteractEvent playerInteractEvent = null;
     // Add reference to custom input events
 
     void Awake() {
@@ -27,6 +30,8 @@ public class InputManager : MonoBehaviour
         controls.Player.Enable();
         controls.Player.Move.performed += ctx => OnMovePlayer(ctx);
         controls.Player.Move.canceled += ctx => OnMovePlayer(ctx);
+
+        controls.Player.Interact.performed += ctx => OnPlayerInteract(ctx);
         // Player controls logic goes here
 
         controls.UI.Enable();
@@ -41,6 +46,10 @@ public class InputManager : MonoBehaviour
     private void OnMovePlayer(InputAction.CallbackContext context) {
         Vector2 direction = context.ReadValue<Vector2>();
         playerMoveEvent.Invoke(direction.x, direction.y);
+    }
+
+    private void OnPlayerInteract(InputAction.CallbackContext context) {
+        playerInteractEvent.Invoke(true);
     }
 
     private void OnPause(InputAction.CallbackContext context) {
