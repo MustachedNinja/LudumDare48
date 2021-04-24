@@ -6,11 +6,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController controller;
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float turnSmoothTime = 0.1f;
 
     [Header("Ground Check")]
     [Space]
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance = 0.2f;
+    [SerializeField] private float groundDistance = 0.1f;
     [SerializeField] private LayerMask groundMask;
 
     [Header("Crouch Check")]
@@ -18,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, 1)] [SerializeField] private float crouchSpeed = 0.4f;
     [SerializeField] private Transform ceilingCheck;
     [SerializeField] private Collider crouchDisableCollider;
+
+    [Header("Camera")]
+    [Space]
+    [SerializeField] private Transform thirdPersonCam;
 
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> {}
@@ -31,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 direction = Vector2.zero;
     private bool isGrounded = true;
+    private float turnSmoothVelocity;
 
     public void OnMove(float x, float y) {
         direction = new Vector2(x, y);
@@ -45,11 +51,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update() {
-        Move(direction * movementSpeed);
+        isGrounded = CheckGrounded();
+        Vector3 moveDirection = Rotate(direction);
+        Move(moveDirection.normalized * movementSpeed);
     }
 
-    private void Move(Vector2 direction) {
-        Vector2 targetDirection = direction;
+    private Vector3 Rotate(Vector2 direction) {
+        if (direction.magnitude >= 0.1f) {
+            float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + thirdPersonCam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            return Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        } else {
+            return Vector3.zero;
+        }
+    }
+
+    private void Move(Vector3 direction) {
+        Vector3 targetDirection = direction;
         if (crouch) {
             if (!wasCrouching) {
                 wasCrouching = true;
@@ -75,11 +95,15 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        controller.Move(new Vector3(targetDirection.x, 0, targetDirection.y) * movementSpeed * Time.deltaTime);
+        controller.Move(targetDirection * movementSpeed * Time.deltaTime);
 
         // Uncomment if we ever need gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private bool CheckGrounded() {
+        return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 
 
