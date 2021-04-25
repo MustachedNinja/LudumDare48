@@ -17,7 +17,7 @@ class PlayerInteraction : MonoBehaviour {
             var AObj = hit.collider.GetComponent<ActivatableObject>();
 
             if(AObj) {
-                OnHoverObject.Invoke(AObj.ObjectName, AObj.Activateable);
+                OnHoverObject.Invoke(AObj.ObjectName, AObj.Activatable);
             }
         }
     }
@@ -27,7 +27,7 @@ class PlayerInteraction : MonoBehaviour {
         if(Physics.Raycast(this.transform.position, this.transform.forward, out var hit, this.Range)) {
             var AObj = hit.collider.GetComponent<ActivatableObject>();
 
-            if(AObj != null && AObj.Activateable) {
+            if(AObj != null && AObj.Activatable) {
                 OnActivation.Invoke();
                 AObj.Activate();
             }
