@@ -25,6 +25,7 @@ public class InputManager : MonoBehaviour
 
     void Awake() {
         controls = new InputSystem();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 

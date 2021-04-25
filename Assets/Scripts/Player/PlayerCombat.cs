@@ -3,10 +3,9 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private GameObject projectile;
+    [SerializeField] private Transform shootPoint;
 
     public void OnPlayerShoot() {
-        Debug.Log("PLAYER SHOOT");
-        GameObject bullet = Instantiate(projectile, transform.position, transform.rotation);
-        bullet.transform.parent = gameObject.transform;
+        GameObject bullet = Instantiate(projectile, shootPoint.position, transform.rotation);
     }
 }
