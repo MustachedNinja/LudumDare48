@@ -2,12 +2,9 @@
 using UnityEngine.Events;
 
 public class PlayerSleep : MonoBehaviour {
-    public float LevelIncreaseRatio = 0.1f;
+    public float LevelDecreaseRatio = 0.01f;
 
-    public UnityEvent OnSleepLevelFull;
     public UnityEvent OnSleepLevelEmpty;
-
-    public bool Sleep = false;
 
     private float m_SleepLevel = 1f;
 
@@ -21,23 +18,10 @@ public class PlayerSleep : MonoBehaviour {
     }
 
     public void Update() {
-        if(Sleep) {
-            m_SleepLevel += LevelIncreaseRatio * Time.deltaTime;
-
-            if(m_SleepLevel >= 1) {
-                m_SleepLevel = 1;
-                OnSleepLevelFull.Invoke();
-                Sleep = false;
-            }
-        }
-    }
-
-    public void DecreaseLevel(float val) {
-        m_SleepLevel -= val;
+        m_SleepLevel -= LevelDecreaseRatio * Time.deltaTime;
         if(m_SleepLevel <= 0) {
             m_SleepLevel = 0;
             OnSleepLevelEmpty.Invoke();
         }
     }
-
 }
