@@ -2,17 +2,23 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float projectileSpeed = 10f;
+    [SerializeField] private float projectileSpeed = 25f;
     Rigidbody rb;
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.one * projectileSpeed;
+        rb.velocity = transform.forward * projectileSpeed;
     }
 
-    void Update()
-    {
-        
+    void OnCollisionEnter(Collision collision) {
+        if (collision.transform.tag == "Enemy") {
+            OnHitEnemey(collision.gameObject);
+        }
+        Destroy(gameObject);
+    }
+
+    void OnHitEnemey(GameObject enemy) {
+        Destroy(enemy);
     }
 }
