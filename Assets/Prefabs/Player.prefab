@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 8533383025292539733}
   - component: {fileID: 1519478720516256537}
   - component: {fileID: 2390277480068200070}
+  - component: {fileID: 4832928138345959357}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -408,10 +409,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc395521deeece46ae1c1b1fe00740a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RayTransform: {fileID: 7538969526895525602}
   Range: 2
   OnActivation:
     m_PersistentCalls:
       m_Calls: []
-  OnHoverObject:
+--- !u!114 &4832928138345959357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8533383025292539735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e4341f6947fef498a3a576f70735ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelDecreaseRatio: 0.01
+  OnSleepLevelEmpty:
     m_PersistentCalls:
       m_Calls: []
