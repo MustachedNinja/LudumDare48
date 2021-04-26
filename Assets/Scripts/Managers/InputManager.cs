@@ -25,7 +25,8 @@ public class InputManager : MonoBehaviour
 
     void Awake() {
         controls = new InputSystem();
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
 
@@ -47,6 +48,10 @@ public class InputManager : MonoBehaviour
 
     public void DisablePlayerControls() {
         controls.Player.Disable();
+    }
+
+    public void EnablePlayerControls() {
+        controls.Player.Enable();
     }
 
     private void OnMovePlayer(InputAction.CallbackContext context) {
