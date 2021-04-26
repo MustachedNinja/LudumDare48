@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour {
     [SerializeField] private CharacterController controller;
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float gravity = -9.81f;
@@ -25,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform thirdPersonCam;
 
     [System.Serializable]
-    public class BoolEvent : UnityEvent<bool> {}
+    public class BoolEvent : UnityEvent<bool> { }
     public BoolEvent OnCrouchEvent;
     private bool wasCrouching = false;
 
@@ -45,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() {
         rb = GetComponent<Rigidbody>();
-        if (OnCrouchEvent == null) {
+        if(OnCrouchEvent == null) {
             OnCrouchEvent = new BoolEvent();
         }
     }
@@ -57,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private Vector3 Rotate(Vector2 direction) {
-        if (direction.magnitude >= 0.1f) {
+        if(direction.magnitude >= 0.1f) {
             float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -70,29 +69,29 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(Vector3 direction) {
         Vector3 targetDirection = direction;
-        if (crouch) {
-            if (!wasCrouching) {
+        if(crouch) {
+            if(!wasCrouching) {
                 wasCrouching = true;
                 OnCrouchEvent.Invoke(true);
             }
 
             targetDirection *= crouchSpeed;
 
-            if (crouchDisableCollider != null) {
+            if(crouchDisableCollider != null) {
                 crouchDisableCollider.enabled = false;
             }
         } else {
-            if (crouchDisableCollider != null) {
+            if(crouchDisableCollider != null) {
                 crouchDisableCollider.enabled = true;
             }
-            if (wasCrouching) {
+            if(wasCrouching) {
                 wasCrouching = false;
                 OnCrouchEvent.Invoke(false);
             }
         }
 
-        if (isGrounded && velocity.y < 0) {
-            velocity.y = -2f;
+        if(isGrounded && velocity.y < 0) {
+            //velocity.y = -2f;
         }
 
         controller.Move(targetDirection * movementSpeed * Time.deltaTime);
@@ -103,7 +102,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool CheckGrounded() {
-        return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        return Physics.Raycast(this.transform.position, -this.transform.up, groundDistance);
+        //return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 
 

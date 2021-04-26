@@ -10,10 +10,14 @@ class PlayerInteraction : MonoBehaviour {
     public Transform RayTransform;
     public float Range = 2f;
     public UnityEvent OnActivation;
- 
+
+    public LayerMask layermask;
+
+
     [ContextMenu("RayCastInteract")]
     public void RayCastInteract() {
-        if(Physics.Raycast(this.RayTransform.position, this.RayTransform.forward, out var hit, this.Range)) {
+
+        if(Physics.Raycast(this.RayTransform.position, this.RayTransform.forward, out var hit, this.Range, ~layermask)) {
             var AObj = hit.collider.GetComponent<ActivatableObject>();
 
             if(AObj != null && AObj.Activatable) {
