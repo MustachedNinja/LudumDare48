@@ -37,11 +37,11 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private bool GetRandomSpawnPoint(Vector3 center, out Vector3 result) {
-        for (int i = 0; i < 30; i++) {
-            Vector2 randomPosition = Random.insideUnitCircle.normalized;
+        for (int i = 0; i < 100; i++) {
+            Vector3 randomPosition = Random.insideUnitSphere.normalized;
             float randomSpawnDistance = Random.Range(minSpawnDistance, maxSpawnDistance);
             randomPosition *= randomSpawnDistance;
-            Vector3 randomPoint = center + new Vector3(randomPosition.x, 0f, randomPosition.y);
+            Vector3 randomPoint = center + randomPosition;
 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas)) {
@@ -54,11 +54,13 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void SpawnEnemy() {
+        Debug.Log("SPAWN ENEMY");
         Vector3 spawnPosition;
         bool foundSpawnPoint = GetRandomSpawnPoint(player.position, out spawnPosition);
         if (foundSpawnPoint) {
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
             enemy.transform.parent = gameObject.transform;
+            Debug.Log("FOUND SPAWN POINT");
             enemyCount++;
         }
         spawnRate = Random.Range(minSpawnRate, maxSpawnRate);
