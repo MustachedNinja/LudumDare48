@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 class SessionManager : MonoBehaviour {
     public PlayerSleep Player;
+    public PlayerController playerController;
 
     public ActivatableObject BedActivatable;
     public ActivatableObject FridgeActivatable;
@@ -18,6 +14,7 @@ class SessionManager : MonoBehaviour {
     public UnityEvent<int> OnLose;
 
     private void Start() {
+        playerController.OnPlayerDeath += RaiseLose;
         Player.OnSleepLevelEmpty.AddListener(this.RaiseLose);
         BedActivatable.OnActivation.AddListener(this.RaiseWin);
         FridgeActivatable.OnActivation.AddListener(this.SecondPhase);

@@ -5,16 +5,17 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private int maxEnemies;
     [SerializeField] private float minSpawnRate;
     [SerializeField] private float maxSpawnRate;
     [SerializeField] private float minSpawnDistance;
     [SerializeField] private float maxSpawnDistance;
-    [SerializeField] private float minSpeed;
-    [SerializeField] private float maxSpeed;
     // [Range(0, 1)][SerializeField] private float falloff;
 
     private float spawnRate;
     private float elapsedTime = 0.0f;
+
+    private int enemyCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        if (elapsedTime > spawnRate) {
+        if (elapsedTime > spawnRate && enemyCount < maxEnemies) {
             SpawnEnemy();
         }
     }
@@ -58,6 +59,7 @@ public class EnemySpawner : MonoBehaviour
         if (foundSpawnPoint) {
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
             enemy.transform.parent = gameObject.transform;
+            enemyCount++;
         }
         spawnRate = Random.Range(minSpawnRate, maxSpawnRate);
         elapsedTime = 0.0f;

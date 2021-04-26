@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7538969526895525602}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,8 +41,7 @@ GameObject:
   - component: {fileID: 2494897706006365773}
   - component: {fileID: 3377057127748343370}
   - component: {fileID: 7648667532861830591}
-  - component: {fileID: 497854130181368672}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,19 +112,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &497854130181368672
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893201959618117191}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8533383024493854415
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +123,7 @@ GameObject:
   - component: {fileID: 8533383024493854412}
   - component: {fileID: 8533383024493854411}
   - component: {fileID: 8533383024493854410}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8533383024760171604}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CeilingCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8533383024790197574}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,11 +267,12 @@ GameObject:
   - component: {fileID: 8533383025292539728}
   - component: {fileID: 8533383025292539731}
   - component: {fileID: 5735738177930183663}
-  - component: {fileID: 8533383025292539733}
   - component: {fileID: 1519478720516256537}
   - component: {fileID: 2390277480068200070}
   - component: {fileID: 4832928138345959357}
-  m_Layer: 0
+  - component: {fileID: 4974313839435119949}
+  - component: {fileID: 6012385255088179874}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -368,21 +355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c043efa47cfa2449e442e7c24fb904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
-  shootPoint: {fileID: 0}
---- !u!135 &8533383025292539733
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8533383025292539735}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 1, z: 0}
+  projectilePrefab: {fileID: 3071058082025229594, guid: dcd60f4acd947564d81f182f0793012f, type: 3}
+  shootPoint: {fileID: 7538969526895525602}
 --- !u!136 &1519478720516256537
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -392,7 +366,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8533383025292539735}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -430,3 +404,28 @@ MonoBehaviour:
   OnSleepLevelEmpty:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4974313839435119949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8533383025292539735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4cb4dec86c707040ac4eebca2e0716d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6012385255088179874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8533383025292539735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cfb38a1f1ae26147b23e4d6f54a5407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 10
