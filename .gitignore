@@ -55,6 +55,8 @@ ExportedObj/
 # VSCode files
 *.vscode
 .vscode/
+.collabignore
+/ProjectSettings/UnityConnectSettings.asset
 
 # Unity3D generated file on crash reports
 sysinfo.txt

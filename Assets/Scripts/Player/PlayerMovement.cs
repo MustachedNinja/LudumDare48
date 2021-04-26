@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 Rotate(Vector2 direction) {
         if (direction.magnitude >= 0.1f) {
-            float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + thirdPersonCam.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
