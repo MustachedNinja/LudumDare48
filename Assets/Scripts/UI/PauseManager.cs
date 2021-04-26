@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Seftali.StateMachine;
 
-public class PauseManager : MonoBehaviour
-{
-    public GameObject pausePanel;
+public class PauseManager : MonoBehaviour {
+    public int GameUIIndex = 0;
+    public int PausePanelIndex = 1;
+
     public InputManager input;
     bool isPaused = false;
+
+    public StateMachine StateMachine;
     public void OnPause() {
-        if (isPaused) {
+        if(isPaused) {
             Resume();
         } else {
             Pause();
@@ -16,7 +20,7 @@ public class PauseManager : MonoBehaviour
 
     public void Pause() {
         input.DisablePlayerControls();
-        pausePanel.SetActive(true);
+        StateMachine.ChangeTo(PausePanelIndex);
         Time.timeScale = 0f;
         isPaused = true;
         Cursor.visible = true;
@@ -24,7 +28,7 @@ public class PauseManager : MonoBehaviour
 
     public void Resume() {
         input.EnablePlayerControls();
-        pausePanel.SetActive(false);
+        StateMachine.ChangeTo(GameUIIndex);
         Time.timeScale = 1f;
         isPaused = false;
         Cursor.visible = false;
@@ -32,9 +36,5 @@ public class PauseManager : MonoBehaviour
 
     public void LoadMainMenu() {
         SceneManager.LoadScene(0);
-    }
-
-    void Start() {
-        pausePanel.SetActive(false);
     }
 }
