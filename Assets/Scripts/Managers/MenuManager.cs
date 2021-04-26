@@ -4,8 +4,7 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public void StartGame() {
-        //SceneManager.LoadScene(1);  // Index of Level01
-        SceneManager.LoadScene(2);  // Index of Level02
+        SceneManager.LoadScene(1);  // Index of Level01
     }
 
     public void QuitGame() {
